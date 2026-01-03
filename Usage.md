@@ -28,6 +28,22 @@ The Github Theme is a colorscheme for Vim, and it can be used like any other col
 :colorscheme github_dark
 ```
 
+To switch automatically based on `vim.opt.background`, use the `github` entrypoint and configure the variants you want for light/dark:
+
+```lua
+require('github-theme').setup({
+  options = {
+    dark_variant = 'github_dark',
+    light_variant = 'github_light',
+  }
+})
+
+vim.cmd('colorscheme github')
+```
+
+Set `vim.opt.background` to `light` or `dark` to switch between the variants; when using
+`colorscheme github`, the theme automatically reloads on background changes.
+
 The Github Theme is highly customizable, and it provides four main components that can be customized: [option], [palette], [spec], and [group].
 
 [option]: #option

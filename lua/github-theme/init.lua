@@ -21,6 +21,21 @@ local function write_file(filepath, content)
   end
 end
 
+local function resolve_theme(theme, background)
+  if theme == 'github' then
+    local opts = config.options
+    local bg = background or vim.o.background
+    theme = bg == 'light' and opts.light_variant or opts.dark_variant
+  end
+
+  local themes = require('github-theme.palette').themes
+  if not themes[theme] then
+    error('invalid theme provided: ' .. tostring(theme))
+  end
+
+  return theme
+end
+
 function M.reset()
   require('github-theme.config').reset()
   require('github-theme.override').reset()
@@ -80,9 +95,13 @@ function M.load(opts)
     require('github-theme.util.reload')()
   end
 
-  if opts.theme then
-    require('github-theme.config').set_theme(opts.theme)
-  end
+  local requested = opts.theme or config.theme
+  config.auto_theme = requested == 'github'
+  vim.g.github_theme_auto = config.auto_theme or nil
+  local theme = resolve_theme(requested, opts.background)
+  require('github-theme.config').set_theme(theme)
+  vim.g.github_theme_auto_variant = config.auto_theme and theme or nil
+  opts.theme = theme
 
   local _, compiled_file = config.get_compiled_info(opts)
   local compiled_theme = loadfile(compiled_file)
@@ -94,6 +113,9 @@ function M.load(opts)
 
   ---@diagnostic disable-next-line: need-check-nil
   compiled_theme()
+  if config.auto_theme then
+    vim.g.colors_name = 'github'
+  end
   require('github-theme.autocmds').set_autocmds()
 end
 

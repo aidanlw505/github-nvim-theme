@@ -64,6 +64,23 @@ command:
     :colorscheme github_dark
 <
 
+To switch automatically based on |'background'|, use the `github` entrypoint
+and configure the variants via `setup()`:
+
+>lua
+    require('github-theme').setup({
+      options = {
+        dark_variant = 'github_dark',
+        light_variant = 'github_light',
+      }
+    })
+
+    vim.cmd('colorscheme github')
+<
+
+Set |'background'| to `light` or `dark` to switch between the variants; when using
+`colorscheme github`, the theme automatically reloads on background changes.
+
 The Github Theme is highly customizable, and it provides four main components
 that can be customized: |github-nvim-theme-option|,
 |github-nvim-theme-palette|, |github-nvim-theme-spec|, and
@@ -278,6 +295,18 @@ options.module_default {bool}       *github-nvim-theme-options.module_default*
 
 Specifies the default value of a module that has not been overridden in the
 modules table.
+
+
+options.dark_variant {string}     *github-nvim-theme-options.dark_variant*
+
+Theme name to use when |'background'| is `dark`. The default value is
+`github_dark`.
+
+
+options.light_variant {string}    *github-nvim-theme-options.light_variant*
+
+Theme name to use when |'background'| is `light`. The default value is
+`github_light`.
 
 
 options.styles {table}                      *github-nvim-theme-options.styles*

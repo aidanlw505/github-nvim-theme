@@ -142,6 +142,22 @@ Simply set the colorscheme with the builtin command `:colorscheme`
 colorscheme github_dark
 ```
 
+To switch automatically based on `vim.opt.background`, use the `github` entrypoint and configure your preferred variants:
+
+```lua
+require('github-theme').setup({
+  options = {
+    dark_variant = 'github_dark',
+    light_variant = 'github_light',
+  }
+})
+
+vim.cmd('colorscheme github')
+```
+
+Set `vim.opt.background` to `light` or `dark` to switch between the variants; when using
+`colorscheme github`, the theme automatically reloads on background changes.
+
 ```lua
 vim.cmd('colorscheme github_dark')
 ```

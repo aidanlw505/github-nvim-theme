@@ -31,8 +31,6 @@ function M.compile(opts)
   opts.theme = opts.theme or config.theme
   local spec = require('github-theme.spec').load(opts.theme)
   local groups = require('github-theme.group').from(spec)
-  local background = spec.palette.meta.light and 'light' or 'dark'
-
   local lines = {
     fmt(
       [[
@@ -43,10 +41,8 @@ if vim.g.colors_name then
   vim.g.colors_name = nil
 end
 vim.o.termguicolors = true
-vim.o.background = "%s"
 vim.g.colors_name = "%s"
 ]],
-      background,
       opts.theme
     ),
   }

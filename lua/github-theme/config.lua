@@ -1,6 +1,6 @@
 local collect = require('github-theme.lib.collect')
 local util = require('github-theme.util')
-local M = { theme = 'github_dark', has_options = false }
+local M = { theme = 'github_dark', has_options = false, auto_theme = false }
 
 ---@alias GhTheme.Config.Options.Filetype string A neovim `filetype`.
 
@@ -23,6 +23,8 @@ local M = { theme = 'github_dark', has_options = false }
 ---@field terminal_colors? boolean
 ---@field dim_inactive? boolean
 ---@field module_default? boolean
+---@field dark_variant? GhTheme.Theme
+---@field light_variant? GhTheme.Theme
 ---@field styles? GhTheme.Config.Options.Styles
 ---@field inverse? GhTheme.Config.Options.Inverse
 ---@field darken? GhTheme.Config.Options.Darken
@@ -36,6 +38,8 @@ local defaults = {
   terminal_colors = true,
   dim_inactive = false,
   module_default = true,
+  dark_variant = 'github_dark',
+  light_variant = 'github_light',
 
   ---A table of syntax items/groups and their corresponding styles.
   ---@class (exact) GhTheme.Config.Options.Styles
@@ -193,6 +197,7 @@ end
 function M.reset()
   ---@type GhTheme.Config.Options
   M.options = collect.deep_copy(defaults)
+  M.auto_theme = false
   return M
 end
 
