@@ -25,6 +25,9 @@ function M.get(spec, _config, _opts)
     NeogitNotificationInfo     = { fg = spec.diag.info },
     NeogitNotificationWarning  = { fg = spec.diag.warn },
     NeogitNotificationError    = { fg = spec.diag.error },
+
+    NeogitNormalFloat          = { link = 'NormalFloat' },
+    NeogitFloatBorder          = { link = 'FloatBorder' },
   }
 end
 
