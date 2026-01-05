@@ -9,6 +9,7 @@ function M.get(spec, config)
   local trans = config.transparent
   local c = spec.palette
   local sts_bg = C.from_hex(spec.bg0):blend(C.from_hex(c.blue.base), 0.7):to_css()
+  local float_bg = trans and 'NONE' or config.darken.floats and spec.bg0 or spec.bg1
 
  -- stylua: ignore start
  local groups = {
@@ -51,8 +52,10 @@ function M.get(spec, config)
 
     NormalNC        = { fg = spec.fg1, bg = inactive and spec.bg0 or trans and 'NONE' or spec.bg1 }, -- normal text in non-current windows
 
-    NormalFloat     = { fg = spec.fg1, bg = trans and 'NONE' or config.darken.floats and spec.bg0 or spec.bg1 }, -- Normal text in floating windows.
-    FloatBorder     = { fg = c.border.default, bg = trans and 'NONE' or config.darken.floats and spec.bg0 or spec.bg1 }, -- border for floating windows
+    NormalFloat     = { fg = spec.fg1, bg = float_bg }, -- Normal text in floating windows.
+    FloatBorder     = { fg = c.border.default, bg = float_bg }, -- border for floating windows
+    FloatTitle      = { fg = spec.fg1, bg = float_bg, style = 'bold' }, -- title for floating windows
+    FloatFooter     = { fg = spec.fg1, bg = float_bg }, -- footer for floating windows
     Pmenu           = { fg = spec.fg1, bg = spec.bg0 }, -- Popup menu: normal item.
     PmenuSel        = { bg = spec.sel1 }, -- Popup menu: selected item.
     PmenuSbar       = { link = 'Pmenu' }, -- Popup menu: scrollbar.
