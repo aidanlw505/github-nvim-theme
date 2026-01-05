@@ -12,6 +12,8 @@ function M.get(spec, _config, _opts)
     DashboardShortCut = { link = 'Identifier' },
     DashboardHeader   = { link = 'Title' },
     DashboardCenter   = { link = 'String' },
+    DashboardDesc     = { link = 'Comment' },
+    DashboardKey      = { link = 'Keyword' },
     DashboardFooter   = { fg = spec.syntax.const, style = 'italic' },
   }
 end
